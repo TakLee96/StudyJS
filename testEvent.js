@@ -1,7 +1,7 @@
 var Evt = require("./event");
 
-Evt.on("well", function () {
-	console.log("Event well triggered");
+Evt.$on("well", function (evt) {
+	console.log("Event " + evt.name + " triggered");
 });
 
-Evt.emit("well");
+Evt.$emit("well");

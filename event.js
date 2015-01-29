@@ -1,17 +1,22 @@
 module.exports = {
-	emit: function (name) {
-		if (Evt.events[name]) {
-			Evt.events[name]();
+	$emit: function (name) {
+		var evt = this._events[name];
+		if (evt) {
+			evt.callback(evt);
 		} else {
 			throw Error("Event " + name + " not defined!");
 		}
 	},
-	on: function (name, cb) {
-		if (Evt.events[name]) {
+	$on: function (name, callback) {
+		if (this._events[name]) {
 			throw Error("Duplicate Event: " + name);
 		} else {
-			Evt.events[name] = cb;
+			this._events[name] = {
+				name: name,
+				time: new Date(),
+				callback: callback
+			};
 		}
 	},
-	events: {}
+	_events: {}
 };
